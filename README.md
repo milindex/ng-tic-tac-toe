@@ -1,6 +1,9 @@
-# MsTicTacToe
+# Tic Tac Toe
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
+
+Inspired by: Inspired By: https://playtictactoe.org/
+Please Note this is a learning purpose project.
 
 ## Development server
 

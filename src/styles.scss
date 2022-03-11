@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+body {
+  &:not(.mobile) {
+    .neave {
+      &:hover {
+        .disc {
+          opacity: 1;
+        }
+      }
+    }
+    .scores {
+      &:hover {
+        .swap {
+          opacity: 1;
+        }
+      }
+      &:active {
+        .swap {
+          opacity: 0.75;
+        }
+      }
+    }
+  }
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+html {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+* {
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  &:before {
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+  &:after {
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+}
+a {
+  color: #fff;
+}

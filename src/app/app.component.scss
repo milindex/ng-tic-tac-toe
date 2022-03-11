@@ -1,0 +1,442 @@
+@keyframes neave-anim {
+  to {
+    background-position: 0 400%;
+  }
+}
+@keyframes fade-anim {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade-mid-anim {
+  0% {
+    opacity: 0.5;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+@-webkit-keyframes border-blink {
+  50% {
+    border-color: #000;
+  }
+}
+@-moz-keyframes border-blink {
+  50% {
+    border-color: #000;
+  }
+}
+@keyframes border-blink {
+  50% {
+    border-color: #000;
+  }
+}
+@-webkit-keyframes blink {
+  50% {
+    visibility: hidden;
+  }
+}
+@-moz-keyframes blink {
+  50% {
+    visibility: hidden;
+  }
+}
+@keyframes blink {
+  50% {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes appear {
+  from {
+    -webkit-transform: scale(0.3);
+    transform: scale(0.3);
+  }
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@-moz-keyframes appear {
+  from {
+    -moz-transform: scale(0.3);
+    transform: scale(0.3);
+  }
+  to {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes appear {
+  from {
+    transform: scale(0.3);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.neave {
+  position: absolute;
+  display: block;
+  left: 15px;
+  left: calc(15px + env(safe-area-inset-left));
+  top: 15px;
+  top: calc(15px + env(safe-area-inset-top));
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  .title {
+    display: none;
+  }
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    pointer-events: none;
+  }
+  .disc {
+    position: absolute;
+    display: block;
+    width: 44px;
+    height: 44px;
+    background-color: #9fc;
+    background-image: linear-gradient(to bottom, #9fc 0%, #9cf 25%, #f9c 50%, #fc9 75%, #9fc 100%);
+    background-size: 100% 400%;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: neave-anim 8s infinite linear;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 0.2s ease-out;
+  }
+  &:active {
+    margin-top: 1px;
+  }
+}
+.mobile {
+  .neave {
+    svg {
+      animation: fade-mid-anim 5s infinite ease-in-out;
+    }
+    .disc {
+      animation: neave-anim 8s infinite linear, fade-anim 5s infinite ease-in-out;
+    }
+  }
+}
+.game {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  margin-left: -300px;
+  margin-top: -370px;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+.alt {
+  display: none;
+}
+.error {
+  text-align: center;
+  padding: 40px 20px;
+  line-height: 1.5;
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+.board {
+  width: 100%;
+  height: 100%;
+  .square {
+    >div {
+      -webkit-transition: opacity 0.1s;
+      -moz-transition: opacity 0.1s;
+      transition: opacity 0.1s;
+    }
+  }
+}
+.square {
+  float: left;
+  width: 33.333333333%;
+  height: 33.333333333%;
+  border-width: 5px;
+  border-color: #fff;
+  -webkit-transition: background-color 0.1s;
+  -moz-transition: background-color 0.1s;
+  transition: background-color 0.1s;
+  will-change: background-color, border-color;
+  cursor: pointer;
+  &:focus {
+    outline: 0;
+    background-color: #333;
+  }
+  .x {
+    position: relative;
+    will-change: transform;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-animation: appear 0.2s cubic-bezier(0.5, 1.8, 0.1, 1.1);
+    -moz-animation: appear 0.2s cubic-bezier(0.5, 1.8, 0.1, 1.1);
+    animation: appear 0.2s cubic-bezier(0.5, 1.8, 0.1, 1.1);
+  }
+  .o {
+    position: relative;
+    will-change: transform;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-animation: appear 0.2s cubic-bezier(0.5, 1.8, 0.1, 1.1);
+    -moz-animation: appear 0.2s cubic-bezier(0.5, 1.8, 0.1, 1.1);
+    animation: appear 0.2s cubic-bezier(0.5, 1.8, 0.1, 1.1);
+  }
+}
+.square.top {
+  border-bottom-style: solid;
+}
+.square.bottom {
+  border-top-style: solid;
+  >div {
+    margin-top: -5px;
+  }
+}
+.square.left {
+  clear: both;
+  border-right-style: solid;
+}
+.square.right {
+  border-left-style: solid;
+  >div {
+    margin-left: -5px;
+  }
+}
+.board.tie {
+  .square {
+    -webkit-animation: border-blink 0.3s steps(1) 3;
+    -moz-animation: border-blink 0.3s steps(1) 3;
+    animation: border-blink 0.3s steps(1) 3;
+    >div {
+      opacity: 0.5;
+    }
+  }
+}
+.board.win {
+  .square {
+    &:not(.win) {
+      >div {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+.square.win {
+  >div {
+    -webkit-animation: blink 0.3s steps(1) 3;
+    -moz-animation: blink 0.3s steps(1) 3;
+    animation: blink 0.3s steps(1) 3;
+  }
+}
+.o {
+  left: 16.666666667%;
+  top: 16.666666667%;
+  width: 66.666666667%;
+  height: 66.666666667%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 20px solid #fff;
+}
+.x {
+  width: 100%;
+  height: 100%;
+  &:before {
+    position: absolute;
+    content: "";
+    display: block;
+    background-color: #fff;
+    left: 90px;
+    top: 20px;
+    width: 20px;
+    height: 160px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  &:after {
+    position: absolute;
+    content: "";
+    display: block;
+    background-color: #fff;
+    left: 90px;
+    top: 20px;
+    width: 20px;
+    height: 160px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+.restart {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+}
+.scores {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 600px;
+  margin-left: -300px;
+  margin-top: 280px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  p {
+    font: 20px "Raleway", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .swap {
+    display: inline-block;
+    vertical-align: top;
+    width: 30px;
+    height: 30px;
+    margin: -5px -30px 0 0;
+    opacity: 0.5;
+    cursor: pointer;
+    outline: 0;
+    -webkit-transition: opacity 0.1s;
+    -moz-transition: opacity 0.1s;
+    transition: opacity 0.1s;
+  }
+  .score {
+    font-size: 50px;
+    display: block;
+    height: 60px;
+    padding: 10px 0 0;
+    will-change: transform;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .score.appear {
+    -webkit-animation: appear 0.3s cubic-bezier(0.5, 4, 0.1, 1.1);
+    -moz-animation: appear 0.3s cubic-bezier(0.5, 4, 0.1, 1.1);
+    animation: appear 0.3s cubic-bezier(0.5, 4, 0.1, 1.1);
+  }
+  .o {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-width: 2px;
+    margin: 1px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .x {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    &:before {
+      left: 0;
+      top: 2px;
+      margin-left: 7px;
+      width: 2px;
+      height: 17px;
+    }
+    &:after {
+      left: 0;
+      top: 2px;
+      margin-left: 7px;
+      width: 2px;
+      height: 17px;
+    }
+  }
+  .turn {
+    opacity: 0.5;
+  }
+}
+.player1 {
+  width: 230px;
+  white-space: nowrap;
+}
+.player2 {
+  width: 230px;
+  white-space: nowrap;
+}
+.scores.p1 {
+  .p2 {
+    display: none;
+  }
+}
+.scores.p2 {
+  .p1 {
+    display: none;
+  }
+}
+.mute {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  right: 15px;
+  right: calc(15px + env(safe-area-inset-right));
+  top: 15px;
+  top: calc(15px + env(safe-area-inset-top));
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-transition: opacity 0.1s;
+  -moz-transition: opacity 0.1s;
+  transition: opacity 0.1s;
+}
