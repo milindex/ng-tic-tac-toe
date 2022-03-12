@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,10 @@ export class AppComponent implements OnInit{
 
   constructor(){}
 
-  click = new Array(9)
+  click = new Array(9).fill(null)
   clickCount: number = 0
 
-  nonFaded :number[] = []
+  nonFaded :number[] = [] // For de-fading the winning condition Visually (Using CSS)
 
   restartGame: boolean = false
   currentPlayer: number = 1
@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
   playerTwoScore: number = 0
   tieScore: number = 0
 
+  // Conditions to match for player to be a winner
   winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -38,55 +39,65 @@ export class AppComponent implements OnInit{
     // console.log(this.click);
   }
 
+    // Handle clicks and sequnce the functions
   handleClick($event: any ): void{
     try {
-      let index: number = $event.attributes['data-index'].value
-      let currentPlayer = this.currentPlayer
-      if(this.currentPlayer == 1){
-        this.click[index] = 'x'
-        this.currentPlayer = 2
-      }
-      else{
-        this.click[index] = 'o'
-        this.currentPlayer = 1
-      }
-      this.checkWinner(currentPlayer)
-      this.clickCount++
+      this.addClicks()
+      let index: number = $event.attributes['data-index'].value // get squareBox index (0-8)
+      this.playerActions(index)
     } catch (error) {
       alert('This one is already selected, try other one')
     }
   }
 
+  // Handle actions
+  playerActions(index: number): void{
+    let currentPlayer = this.currentPlayer
+    if(this.currentPlayer == 1){
+      this.click[index] = 'x'
+      this.currentPlayer = 2
+    }
+    else{
+      this.click[index] = 'o'
+      this.currentPlayer = 1
+    }
+    this.checkWinner(currentPlayer)
+  }
+
+  // Check if we have a winner !
   checkWinner(player: number): void{
-    let type: string = player == 1 ? 'x' : 'o'
-    for ( let winningArray of this.winningConditions) {
-      if(   ( type == this.click[winningArray[0]] )
-        &&  (this.click[winningArray[0]] == this.click[winningArray[1]])
-        &&  (this.click[winningArray[1]] == this.click[winningArray[2]])
-        &&  (this.click[winningArray[0]] == this.click[winningArray[2]])
-      ){
-        this.nonFaded = [ winningArray[0], winningArray[1], winningArray[2] ]
-        player == 1 ? (this.playerOneScore++) : (this.playerTwoScore++)
-        this.winner = player
-        this.currentPlayer = player // Override to current player
-        this.restartGame = true
-        continue;
-      }
-      else{
-        console.log(this.clickCount);
-        if( this.clickCount == 9){
-          if( this.tie == false ){
-            this.winner = 0
-            this.tie = true;
-            this.tieScore++
-            this.restartGame = true
-          }
+    if( this.clickCount >= 5 || this.clickCount <= 9 ){
+      // declare type (x | o) to match conditions with winning array
+      let type: string = player == 1 ? 'x' : 'o'
+      for ( let winningArray of this.winningConditions) {
+        if(   ( type == this.click[winningArray[0]] ) &&
+        (this.click[winningArray[0]] === this.click[winningArray[1]]) &&
+        (this.click[winningArray[0]] === this.click[winningArray[2]]) ){
+          this.winner = player // We have a winner !
+          player == 1 ? (this.playerOneScore++) : (this.playerTwoScore++) // +1 the score of winning player
+          this.restartGame = true // set Restart Flag to true
+          this.nonFaded = [ winningArray[0], winningArray[1], winningArray[2] ] // Will be used to highlight winning x|o line visually
+          this.currentPlayer = player // Override to current player
+          continue; // Get out of loop !
         }
-        continue;
       }
+    }
+    if( this.clickCount == 9 ){ // only when click count reaches 9
+      this.checkTie(player)
     }
   }
 
+  // Check whether it's a tie
+  checkTie(player: number): void{
+    if( this.tie == false && this.winner == 0){
+      this.tie = true;
+      this.tieScore++
+      this.currentPlayer = player // Override to current player
+      this.restartGame = true
+    }
+  }
+
+  // Handle Continue & reset game actions
   continueOrReset(type: string): void{
     this.click = new Array(9)
     this.clickCount = 0
@@ -101,6 +112,11 @@ export class AppComponent implements OnInit{
       this.tieScore = 0
       this.currentPlayer = 1
     }
-    // console.log('Restarting Game!')
+
+  }
+
+  // Increment clicks when called
+  addClicks(): void{
+    this.clickCount++
   }
 }
