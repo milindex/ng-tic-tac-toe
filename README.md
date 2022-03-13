@@ -1,8 +1,12 @@
 # Tic Tac Toe
 
+[DEMO](https://milindsonawane.in/ng-tic-tac-toe/)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
-Inspired by: https://playtictactoe.org/
+Design Inspired by: https://playtictactoe.org/
+LCO: [Hitesh Choudhary](https://github.com/hiteshchoudhary)
+
 Please Note this is a learning purpose project.
 
 ## Development server
