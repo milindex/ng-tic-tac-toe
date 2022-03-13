@@ -104,6 +104,7 @@ export class AppComponent implements OnInit{
     this.winner = 0
     this.currentPlayer = this.currentPlayer == 1 ? 2 : 1
     this.tie = false
+    this.nonFaded = []
     this.restartGame = false
     if( type == 'reset' ){
       this.click = new Array(9)

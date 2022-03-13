@@ -1,53 +1,34 @@
-<div>
+<div class="game-container">
   <div class="game">
-
-    <div class="board" [ngClass]="[restartGame ? 'faded' : '', winner > 0 ? 'win' : '', tie ? 'tie' : '' ]">
+    <div class="tic-tac-toe-board" [ngClass]="[restartGame ? 'faded' : '', winner > 0 ? 'win' : '', tie ? 'tie' : '' ]">
       <div (click)="handleClick($event.target)" *ngFor="let value of click; let i = index" class="square" [attr.data-index]="i" [attr.data-is-nonfaded]="nonFaded.indexOf(i) > -1">
-        <div [ngClass]="click[i]"></div>
+        <div [ngClass]="[ click[i] == 'x' ? 'cross' : '', click[i] == 'o' ? 'circle' : '' ] "></div>
       </div>
-
-      <!-- <div (click)="handleClick($event.target)" class="square top left" data-index="0">
-        <div [ngClass]="click[0]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square top" data-index="1">
-        <div [ngClass]="click[1]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square top right" data-index="2">
-        <div [ngClass]="click[2]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square left" data-index="3">
-        <div [ngClass]="click[3]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square" data-index="4">
-        <div [ngClass]="click[4]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square right" data-index="5">
-        <div [ngClass]="click[5]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square bottom left" data-index="6">
-        <div [ngClass]="click[6]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square bottom" data-index="7">
-        <div [ngClass]="click[7]"></div>
-      </div>
-      <div (click)="handleClick($event.target)" class="square bottom right" data-index="8">
-        <div [ngClass]="click[8]"></div>
-      </div> -->
     </div>
     <div class="restart" [ngClass]="restartGame ? 'show' : 'hide' ">
       <p *ngIf="winner > 0">Player {{winner}} has won this round,  Would you like to </p>
       <p *ngIf="tie">This round is a Tie,  Would you like to </p>
-      <button class="glow-on-hover" type="button" (click)="continueOrReset('continue')">Continue</button>
+      <button class="rgb-button" type="button" (click)="continueOrReset('continue')">Continue</button>
       <p>Or </p>
-      <button class="glow-on-hover" type="button" (click)="continueOrReset('reset')">Reset</button>
+      <button class="rgb-button" type="button" (click)="continueOrReset('reset')">Reset</button>
     </div>
   </div>
-
-
-  <div class="scores p1">
-    <p class="player1"><span class="p1">Player 1 </span>(<span class="x"></span>)<span class="score">{{playerOneScore}}</span></p>
-    <p class="ties">Tie<span class="score">{{tieScore}}</span></p>
-    <p class="player2"><span class="p1">Player 2 </span>(<span class="o"></span>)<span class="score">{{playerTwoScore}}</span></p>
+  <div class="meta-container">
+    <div class="score-container">
+      <div class="player">
+        <p class="heading">Player 1 (x)</p>
+        <p class="score">{{playerOneScore}}</p>
+      </div>
+      <div class="player">
+        <p class="heading">Tie</p>
+        <p class="score">{{tieScore}}</p>
+      </div>
+      <div class="player">
+        <p class="heading">Player 2 (o)</p>
+        <p class="score">{{playerTwoScore}}</p>
+      </div>
+    </div>
     <div *ngIf="winner == 0" class="current-turn">It's Player {{currentPlayer}}'s Turn</div>
   </div>
+
 </div>
